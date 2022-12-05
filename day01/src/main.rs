@@ -14,7 +14,7 @@
 //
 // 10000
 // "#;
-const INPUTS: &str = include_str!("./input.txt");
+const INPUTS: &str = include_str!("../input.txt");
 
 fn main() {
     let elves_with_calories = INPUTS

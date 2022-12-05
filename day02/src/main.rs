@@ -3,7 +3,7 @@
 // B X
 // C Z
 // "#;
-const INPUTS: &str = include_str!("./input.txt");
+const INPUTS: &str = include_str!("../input.txt");
 
 fn main() {
     let (lost, draw, win) = (0, 3, 6);
