@@ -27,8 +27,11 @@ fn main() {
     });
     // println!("{:?}", pairs.clone().collect::<Vec<_>>());
 
-    let part1 = pairs.filter(|(a, b)| is_within(*a, *b)).count();
+    let part1 = pairs.clone().filter(|(a, b)| is_within(*a, *b)).count();
     println!("{}", part1);
+
+    let part2 = pairs.clone().filter(|(a, b)| is_overwrap(*a, *b)).count();
+    println!("{}", part2);
 }
 
 fn is_within(a: (i32, i32), b: (i32, i32)) -> bool {
@@ -42,4 +45,15 @@ fn is_within(a: (i32, i32), b: (i32, i32)) -> bool {
     }
 
     false
+}
+
+fn is_overwrap(a: (i32, i32), b: (i32, i32)) -> bool {
+    if a.1 < b.0 {
+        return false;
+    }
+    if b.1 < a.0 {
+        return false;
+    }
+
+    true
 }
