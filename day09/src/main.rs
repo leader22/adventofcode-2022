@@ -12,7 +12,6 @@ use std::collections::HashSet;
 // "#;
 const INPUTS: &str = include_str!("../input.txt");
 
-type Pos = (i32, i32);
 fn main() {
     let moves = parse_input(INPUTS.trim());
     println!("{:?}", &moves);
@@ -36,11 +35,9 @@ fn parse_input(input: &str) -> Moves {
         .collect::<Vec<_>>()
 }
 
+type Pos = (i32, i32);
 fn simulate(moves: &Moves, knots_len: usize) -> usize {
-    let mut knots: Vec<Pos> = vec![];
-    for _ in 0..knots_len {
-        knots.push((0, 0));
-    }
+    let mut knots: Vec<Pos> = vec![(0, 0); knots_len];
 
     let mut visited: HashSet<String> = HashSet::new();
     let last = *knots.last().unwrap();
@@ -57,7 +54,7 @@ fn simulate(moves: &Moves, knots_len: usize) -> usize {
             }
 
             for t in 1..knots_len {
-                // Update tail(latter) pos if needed
+                // Update tail(latter) if needed
                 if (knots[t - 1].0 - knots[t].0).abs() >= 2
                     || (knots[t - 1].1 - knots[t].1).abs() >= 2
                 {
