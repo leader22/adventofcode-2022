@@ -33,6 +33,7 @@ fn main() {
 
     // println!("{:?}", nums);
 
+    let mut part1 = 0;
     while lists.len() != 0 {
         let item = lists.pop_front().unwrap();
         println!("try to solve: {}", item);
@@ -41,8 +42,8 @@ fn main() {
         let (name, op) = item.split_once(": ").unwrap();
         let lor = op.split(" ").collect::<Vec<_>>();
 
-        if let Some(l) = nums.get(lor[0]) {
-            if let Some(r) = nums.get(lor[2]) {
+        match (nums.get(lor[0]), nums.get(lor[2])) {
+            (Some(l), Some(r)) => {
                 let v = match lor[1] {
                     "+" => l + r,
                     "-" => l - r,
@@ -52,17 +53,20 @@ fn main() {
                 };
 
                 if name == "root" {
-                    println!("part1: {}", v);
+                    part1 = v;
                     break;
                 } else {
-                    println!("  > resolved, continue\n");
                     nums.insert(name.to_string(), v);
+                    println!("  > resolved, continue\n");
                     continue;
                 }
             }
+            _ => {
+                lists.push_back(item);
+                println!("  > no idea, continue\n");
+            }
         }
-
-        println!("  > no idea, continue\n");
-        lists.push_back(item);
     }
+
+    println!("part1: {}", part1);
 }
